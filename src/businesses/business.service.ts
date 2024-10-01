@@ -105,6 +105,11 @@ export class BusinessService {
         throw new Error('Cannot progress further from this stage');
     }
 
+    // update with the existing business
+    this.businesses = this.businesses.map((b) =>
+      b.id === business.id ? business : b,
+    );
+
     return business;
   }
 }

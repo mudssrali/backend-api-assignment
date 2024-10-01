@@ -5,12 +5,12 @@ import { Business } from '../business.interface';
 export class UpdateBusinessDto {
   @IsString()
   @IsEmpty()
-  industry: IndustryType;
+  industry?: IndustryType;
 
   @IsEmpty()
-  contact: Business['contact'];
+  contact?: Business['contact'];
 
   @IsString()
   @IsEmpty()
-  outcome: 'Win' | 'Lost';
+  outcome?: 'Win' | 'Lost';
 }
