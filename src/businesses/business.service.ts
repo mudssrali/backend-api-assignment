@@ -64,7 +64,7 @@ export class BusinessService {
       throw new NotFoundException('Business not found');
     }
 
-    const business = { ...existingBusiness };
+    const updatedBusiness = { ...existingBusiness };
 
     switch (existingBusiness.stage) {
       case BusinessStage.NEW:
@@ -72,12 +72,12 @@ export class BusinessService {
           throw new Error('Industry is required to progress');
         }
 
-        business.industry = industry;
+        updatedBusiness.industry = industry;
 
         if (this.supportedIndustries.includes(industry)) {
-          business.stage = BusinessStage.MARKET_APPROVED;
+          updatedBusiness.stage = BusinessStage.MARKET_APPROVED;
         } else {
-          business.stage = BusinessStage.MARKET_DECLINED;
+          updatedBusiness.stage = BusinessStage.MARKET_DECLINED;
         }
 
         break;
@@ -86,15 +86,15 @@ export class BusinessService {
           throw new Error('Valid contact details are required');
         }
 
-        business.contact = contact;
-        business.stage = BusinessStage.SALES_APPROVED;
+        updatedBusiness.contact = contact;
+        updatedBusiness.stage = BusinessStage.SALES_APPROVED;
         break;
 
       case BusinessStage.SALES_APPROVED:
         if (outcome === 'Win') {
-          business.stage = BusinessStage.WON;
+          updatedBusiness.stage = BusinessStage.WON;
         } else if (outcome === 'Lost') {
-          business.stage = BusinessStage.LOST;
+          updatedBusiness.stage = BusinessStage.LOST;
         } else {
           throw new Error("Specify 'Win' or 'Lost' to proceed further");
         }
@@ -106,10 +106,10 @@ export class BusinessService {
     }
 
     // update with the existing business
-    this.businesses = this.businesses.map((b) =>
-      b.id === business.id ? business : b,
+    this.businesses = this.businesses.map((business) =>
+      business.id === updatedBusiness.id ? updatedBusiness : business,
     );
 
-    return business;
+    return updatedBusiness;
   }
 }
