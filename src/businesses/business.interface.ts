@@ -1,15 +1,18 @@
-import { WorkflowStage } from './enums/WorkflowStage';
+import { IndustryType } from './enums/IndustryType';
+import { BusinessStage } from './enums/BusinessStage';
 
 type FEIN = string;
 
-type ContactInfo = {
+type Contact = {
   name: string;
   phone: string;
 };
 
 export interface Business {
+  id: number;
   fein: FEIN;
   name: string;
-  industry?: WorkflowStage;
-  contact?: ContactInfo;
+  industry?: IndustryType | null;
+  contact?: Contact | null;
+  stage: BusinessStage;
 }

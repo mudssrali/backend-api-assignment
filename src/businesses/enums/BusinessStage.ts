@@ -1,4 +1,4 @@
-export enum WorkflowStage {
+export enum BusinessStage {
   NEW = 'New',
   MARKET_APPROVED = 'Market Approved',
   MARKET_DECLINED = 'Market Declined',
